@@ -18,7 +18,7 @@ public class RsClient {
     private static final String PUT = "/payTicket";
     private static final String DELETE = "/removeTicket/";
     private static final String POST = "/bookedTicket";
-    public static final String CHOISE_SERVERSE = "Please choise type of web serverse(Example 1: JSON, Example 2: json)";
+    public static final String CHOISE_SERVERSE = "Please choise type of web serverse(Example 1: JSON, Example 2: XML)";
     public static final String JSON = "JSON";
     public static final String XML = "XML";
     public static final String CHOISE_COMMAND = "enter command , for use serverse Exampes:\n" +
@@ -56,23 +56,24 @@ public class RsClient {
                     serveseURL = baseURL + XML_SERVER;
                     typeAnswer = "application/xml";
                 } else {
-                    continue;
+                    System.out.println("you entered incorrect atribute");
+                   continue;
                 }
                 System.out.println(CHOISE_COMMAND);
                 while (sc.hasNextLine()) {
                     try {
                         String[] arguments = sc.nextLine().replaceAll(" ", "").split(",");
-                        if (arguments[0].equalsIgnoreCase("gt")) {
+                        if (arguments[0].equalsIgnoreCase(Utils.GET_TICKET)) {
                             webResource = client.resource((serveseURL + GET + arguments[1]));
                             response = webResource.type(typeAnswer).get(ClientResponse.class);
                             Ticket ticket = response.getEntity(Ticket.class);
                             System.out.println(ticket);
-                        } else if (arguments[0].equalsIgnoreCase("rt")) {
+                        } else if (arguments[0].equalsIgnoreCase(Utils.REMOVE_TICKET)) {
                             webResource = client.resource((serveseURL + DELETE + arguments[1]));
                             response = webResource.type(typeAnswer).delete(ClientResponse.class);
                             String message = response.getEntity(String.class);
                             System.out.println(message);
-                        } else if (arguments[0].equalsIgnoreCase("pt")) {
+                        } else if (arguments[0].equalsIgnoreCase(Utils.PAYED_TICKET)) {
                             webResource = client.resource((serveseURL + PUT));
                             Ticket ticket = new Ticket();
                             ticket.setNumberTicket(Integer.valueOf(arguments[1]));
@@ -80,7 +81,7 @@ public class RsClient {
                             response = webResource.type(typeAnswer).put(ClientResponse.class, ticket);
                             String output = response.getEntity(String.class);
                             System.out.println(output);
-                        } else if (arguments[0].equalsIgnoreCase("bt")) {
+                        } else if (arguments[0].equalsIgnoreCase(Utils.BOOKED_TICKET)) {
 
                             webResource = client.resource((serveseURL + POST));
                             Ticket ticket = new Ticket();
@@ -97,6 +98,13 @@ public class RsClient {
                             response = webResource.type(typeAnswer).post(ClientResponse.class, ticket);
                             String output = response.getEntity(String.class);
                             System.out.println(output);
+                        }else if(arguments[0].equalsIgnoreCase("change")){
+                            System.out.println(CHOISE_SERVERSE);
+                            break;
+
+                        }
+                        else{
+                            System.out.println("you entered incorrect command ");
                         }
 
                     } catch (ArrayIndexOutOfBoundsException e) {

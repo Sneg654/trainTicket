@@ -28,26 +28,24 @@ public class WSClient {
             URL wsdlURL = new URL("http://epkzkarw0338.moscow.epam.com:45054/TrainTicketEjb/TrainTicketJaxWsServersImpl?wsdl");
             Service service = Service.create(wsdlURL, serviceName);
             TrainTicketJaxWsServers proxy = (TrainTicketJaxWsServers) service.getPort(TrainTicketJaxWsServers.class);
-            Integer i= proxy.bookedTicket("34","4334",new Date(),new Date(),new Human());
+
             Scanner sc = new Scanner(System.in);
             System.out.println(RsClient.CHOISE_COMMAND);
             while (sc.hasNextLine()) {
                 try {
                     String[] arguments = sc.nextLine().replaceAll(" ", "").split(",");
-                    if (arguments[0].equalsIgnoreCase("gt")) {
+                    if (arguments[0].equalsIgnoreCase(Utils.GET_TICKET)) {
                         Ticket ticket=proxy.findTicket(Integer.valueOf(arguments[1]));
 
                         System.out.println(ticket);
-                    } else if (arguments[0].equalsIgnoreCase("rt")) {
+                    } else if (arguments[0].equalsIgnoreCase(Utils.REMOVE_TICKET)) {
 
                        String message=proxy.removeTicket(Integer.valueOf(arguments[1]));
                             System.out.println(message);
-                    } else if (arguments[0].equalsIgnoreCase("pt")) {
+                    } else if (arguments[0].equalsIgnoreCase(Utils.PAYED_TICKET)) {
                         String message=proxy.payTicket(Integer.valueOf(arguments[1]),Double.valueOf(arguments[2]));
                         System.out.println(message);
-                    } else if (arguments[0].equalsIgnoreCase("bt")) {
-
-
+                    } else if (arguments[0].equalsIgnoreCase(Utils.BOOKED_TICKET)) {
                        Integer number=proxy.bookedTicket(arguments[5],
                                 arguments[6],
                                Utils.getDate(arguments[7]),
@@ -58,6 +56,8 @@ public class WSClient {
                                        Utils.getDate(arguments[4])));
 
                         System.out.println(number);
+                    }else{
+                        System.out.println("you entered incorrect command ");
                     }
 
                 } catch (ArrayIndexOutOfBoundsException e) {
@@ -67,7 +67,7 @@ public class WSClient {
                 }
             }
 
-            System.out.println(i);
+
         }catch (Exception e){
             e.printStackTrace();
         }

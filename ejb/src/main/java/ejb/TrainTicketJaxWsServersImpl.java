@@ -112,7 +112,7 @@ public class TrainTicketJaxWsServersImpl implements TrainTicketJaxWsServers {
         return returnMessage;
     }
 
-    ;
+
 
     @WebMethod
     public String removeTicket(@WebParam(name = "numberTicket") Integer numberTicket) {

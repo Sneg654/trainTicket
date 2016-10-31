@@ -33,7 +33,7 @@ public class WSClient {
             System.out.println(RsClient.CHOISE_COMMAND);
             while (sc.hasNextLine()) {
                 try {
-                    String[] arguments = sc.nextLine().replaceAll(" ", "").split(",");
+                    String[] arguments = sc.nextLine().replaceAll(Utils.SPACE, Utils.REPLACE).split(Utils.DEL);
                     if (arguments[0].equalsIgnoreCase(Utils.GET_TICKET)) {
                         Ticket ticket=proxy.findTicket(Integer.valueOf(arguments[1]));
 
@@ -57,13 +57,13 @@ public class WSClient {
 
                         System.out.println(number);
                     }else{
-                        System.out.println("you entered incorrect command ");
+                        System.out.println(Utils.INCORRECT_COMMAND);
                     }
 
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("You enter incorrect count args for this command");
+                    System.out.println(Utils.INCORRECT_COUNT_ARGUMENT);
                 }catch (ParseException e){
-                    System.out.println("your enter inccorect atribute");
+                    System.out.println(Utils.INCORRECT_PARAM);
                 }
             }
 

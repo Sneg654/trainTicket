@@ -15,6 +15,14 @@ public class Utils {
      public final static String REMOVE_TICKET="rt";
      public final static String PAYED_TICKET="pt";
      public final static String BOOKED_TICKET="bt";
+     public final static String SPACE=" ";
+     public final static String REPLACE="";
+     public final static String DEL=",";
+     public final static String INCORRECT_COMMAND="you entered incorrect command";
+     public final static String INCORRECT_PARAM="you entered incorrect attribute";
+     public final static String INCORRECT_COUNT_ARGUMENT="You enter incorrect count args for this command";
+
+
 
     public static Date getDate(String date)throws ParseException{
         return format.parse(date);

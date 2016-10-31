@@ -56,13 +56,13 @@ public class RsClient {
                     serveseURL = baseURL + XML_SERVER;
                     typeAnswer = "application/xml";
                 } else {
-                    System.out.println("you entered incorrect atribute");
-                   continue;
+                    System.out.println(Utils.INCORRECT_PARAM);
+                    continue;
                 }
                 System.out.println(CHOISE_COMMAND);
                 while (sc.hasNextLine()) {
                     try {
-                        String[] arguments = sc.nextLine().replaceAll(" ", "").split(",");
+                        String[] arguments = sc.nextLine().replaceAll(Utils.SPACE, Utils.REPLACE).split(Utils.DEL);
                         if (arguments[0].equalsIgnoreCase(Utils.GET_TICKET)) {
                             webResource = client.resource((serveseURL + GET + arguments[1]));
                             response = webResource.type(typeAnswer).get(ClientResponse.class);
@@ -98,21 +98,21 @@ public class RsClient {
                             response = webResource.type(typeAnswer).post(ClientResponse.class, ticket);
                             String output = response.getEntity(String.class);
                             System.out.println(output);
-                        }else if(arguments[0].equalsIgnoreCase("change")){
+                        } else if (arguments[0].equalsIgnoreCase("change")) {
                             System.out.println(CHOISE_SERVERSE);
                             break;
 
-                        }
-                        else{
-                            System.out.println("you entered incorrect command ");
+                        } else {
+                            System.out.println(Utils.INCORRECT_COMMAND);
                         }
 
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("You entered incorrect count args for this command");
+                        System.out.println(Utils.INCORRECT_COUNT_ARGUMENT);
                     } catch (ParseException e) {
-                        System.out.println("you entered inccorect atribute");
-                    }catch (Exception e){
-                    System.out.println(e);}
+                        System.out.println(Utils.INCORRECT_PARAM);
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
                 }
             }
 
@@ -126,15 +126,4 @@ public class RsClient {
     }
 
 
-    private void demo() {
-        com.sun.jersey.api.client.Client client = com.sun.jersey.api.client.Client.create();
-        client.setFollowRedirects(true); // in case the service redirects
-
-        WebResource resource = client.resource(baseUrl);
-
-
-        String url = baseUrl + "?id=32";
-        resource = client.resource(url);
-
-    }
 }

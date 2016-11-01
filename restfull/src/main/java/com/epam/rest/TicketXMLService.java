@@ -23,6 +23,7 @@ public class TicketXMLService extends TicketService{
 
     @GET
     @Produces({MediaType.APPLICATION_XML})
+    @Consumes({MediaType.APPLICATION_XML})
     @Path("/getTicket/{id}")
     public Ticket getTicket(@PathParam("id") Integer id) {
         return super.getTicket(id);
@@ -30,6 +31,7 @@ public class TicketXMLService extends TicketService{
 
     @POST
     @Produces({MediaType.APPLICATION_XML})
+    @Consumes({MediaType.APPLICATION_XML})
     @Path("/bookedTicket")
 
     public Response bookedTicket(Ticket innerTicket) {
@@ -40,6 +42,7 @@ public class TicketXMLService extends TicketService{
 
     @PUT
     @Produces({MediaType.APPLICATION_XML})
+    @Consumes({MediaType.APPLICATION_XML})
     @Path("/payTicket")
     public Response payTicket(Ticket innerTicket) {
 
@@ -48,7 +51,8 @@ public class TicketXMLService extends TicketService{
 
 
     @DELETE
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_XML})
+    @Consumes({MediaType.APPLICATION_XML})
     @Path("/removeTicket/{id}")
     public Response removeTicket(@PathParam("id")  Integer numberTicket) {
               return super.removeTicket(numberTicket);

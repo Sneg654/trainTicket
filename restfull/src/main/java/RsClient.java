@@ -18,6 +18,7 @@ public class RsClient {
     private static final String PUT = "/payTicket";
     private static final String DELETE = "/removeTicket/";
     private static final String POST = "/bookedTicket";
+    private static final String CHANGE = "change";
     public static final String CHOISE_SERVERSE = "Please choise type of web serverse(Example 1: JSON, Example 2: XML)";
     public static final String JSON = "JSON";
     public static final String XML = "XML";
@@ -26,16 +27,7 @@ public class RsClient {
             "rt,100- for delete  ticket with number 100\n" +
             "pt,100,5000- for payment  ticket with number 100, sum 5000\n" +
             "bt,FirstName,LastName,MiddleName,BirthDay(format:DD.MM.YYYY),ArrivaCity,DepartureCity,AriveDate(format:DD.MM.YYYY),DepartureDate(format:DD.MM.YYYY)\n";
-
-
-    //    private static final String baseUrl = "http://localhost:8095/rest/TicketJSONService/payTicket";
-//    private static final String baseUrl = "http://localhost:8095/rest/TicketJSONService/payTicket";
-//    private static final String baseUrl = "http://localhost:8095/rest/TicketJSONService/getTicket/101";
-    private static final String baseUrl = "http://localhost:8095/rest/TicketJSONService/bookedTicket";
-
-    //    private static final String baseUrl = "http://localhost:8095/rest/TicketJSONService/removeTicket/100";
-//    private static final String baseUrl = "http://localhost:8095/rest/TicketXMLService/getTicket/101";
-//
+    public static final String CHANGE_TYPE="for change type date enter change";
     public static void main(String[] args) {
         String serveseURL = null;
         String typeAnswer = null;
@@ -68,11 +60,13 @@ public class RsClient {
                             response = webResource.type(typeAnswer).get(ClientResponse.class);
                             Ticket ticket = response.getEntity(Ticket.class);
                             System.out.println(ticket);
+                            System.out.println(CHANGE_TYPE);
                         } else if (arguments[0].equalsIgnoreCase(Utils.REMOVE_TICKET)) {
                             webResource = client.resource((serveseURL + DELETE + arguments[1]));
                             response = webResource.type(typeAnswer).delete(ClientResponse.class);
                             String message = response.getEntity(String.class);
                             System.out.println(message);
+                            System.out.println(CHANGE_TYPE);
                         } else if (arguments[0].equalsIgnoreCase(Utils.PAYED_TICKET)) {
                             webResource = client.resource((serveseURL + PUT));
                             Ticket ticket = new Ticket();
@@ -81,6 +75,7 @@ public class RsClient {
                             response = webResource.type(typeAnswer).put(ClientResponse.class, ticket);
                             String output = response.getEntity(String.class);
                             System.out.println(output);
+                            System.out.println(CHANGE_TYPE);
                         } else if (arguments[0].equalsIgnoreCase(Utils.BOOKED_TICKET)) {
 
                             webResource = client.resource((serveseURL + POST));
@@ -97,8 +92,9 @@ public class RsClient {
 
                             response = webResource.type(typeAnswer).post(ClientResponse.class, ticket);
                             String output = response.getEntity(String.class);
-                            System.out.println(output);
-                        } else if (arguments[0].equalsIgnoreCase("change")) {
+                            System.out.println(Utils.NUMBER_TCIKET + output.toString());
+                            System.out.println(CHANGE_TYPE);
+                        } else if (arguments[0].equalsIgnoreCase(CHANGE)) {
                             System.out.println(CHOISE_SERVERSE);
                             break;
 

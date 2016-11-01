@@ -21,7 +21,7 @@ public class Utils {
      public final static String INCORRECT_COMMAND="you entered incorrect command";
      public final static String INCORRECT_PARAM="you entered incorrect attribute";
      public final static String INCORRECT_COUNT_ARGUMENT="You enter incorrect count args for this command";
-
+     public final static String NUMBER_TCIKET="number of your ticket: ";
 
 
     public static Date getDate(String date)throws ParseException{

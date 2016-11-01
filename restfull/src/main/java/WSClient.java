@@ -55,7 +55,7 @@ public class WSClient {
                                        arguments[3],
                                        Utils.getDate(arguments[4])));
 
-                        System.out.println(number);
+                        System.out.println(Utils.NUMBER_TCIKET+ number);
                     }else{
                         System.out.println(Utils.INCORRECT_COMMAND);
                     }

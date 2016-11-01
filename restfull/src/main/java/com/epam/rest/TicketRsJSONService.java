@@ -1,6 +1,5 @@
 package com.epam.rest;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import entity.Ticket;
 
 import javax.ws.rs.*;
@@ -46,7 +45,7 @@ public class TicketRsJSONService extends TicketService {
     @Consumes({MediaType.APPLICATION_JSON})
     @Path("/removeTicket/{id}")
     public Response removeTicket(@PathParam("id") Integer numberTicket) {
-               return super.removeTicket(numberTicket);
+        return super.removeTicket(numberTicket);
     }
 
 
